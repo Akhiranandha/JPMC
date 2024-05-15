@@ -1,0 +1,13 @@
+{
+  "users": [
+    {
+      "name": "akhira",
+      "dept": "cse"
+    },
+    {
+      "id": "3ee3",
+      "name": "Nanadhu",
+      "dept": "ece"
+    }
+  ]
+}
