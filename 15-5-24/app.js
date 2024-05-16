@@ -30,13 +30,11 @@ async function insertData(){
     }
     
     await axios.post(url,obj)
-    getData()
 }
 async function deleteData(id=null){
     if(id==null)
         id=document.getElementById("id").value
     await axios.delete(url+`/${id}`)
-    getData()
 }
 
 async function updateData(id=null){
@@ -46,6 +44,5 @@ async function updateData(id=null){
         name:document.getElementById("name").value,
         dept:document.getElementById("dept").value
     }
-    await axios.put(url+`/${id}`,obj)
-    getData()
+    await axios.patch(url+`/${id}`,obj)
 }
