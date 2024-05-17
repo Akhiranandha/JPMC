@@ -9,7 +9,7 @@ const fs= require("fs")
 //     },
 //     {
 //         id:2,
-//         name:"nandhu",
+//         name:"madhu",
 //         dept:"ece"
 //     },
 //     {
@@ -42,7 +42,6 @@ var getstudents = () =>{
     // }); 
 }
 var setstudents = (students) => {
-    console.log("problem",students)
     fs.writeFile("students.json", JSON.stringify(students), (err) =>{
         if(err)
             console.log("unable to write in file");
@@ -60,7 +59,6 @@ app.get("/api/students", (req,res)=>{
     if(students==undefined)
         students= getstudents()
     res.json(students)
-    setstudents(students)
 })
 
 app.post("/api/students",(req,res)=>{
@@ -82,11 +80,11 @@ app.put("/api/students/:id",(req,res)=>{
         student.dept=req.body.dept
 
         res.json(students)
+        setstudents(students)
     }
     else{
         res.status(404).json({message:`student with id : ${req.params.id} not found`})
     }
-    setstudents(students)
 })
 
 app.patch("/api/students/:id",(req,res)=>{
@@ -100,6 +98,7 @@ app.patch("/api/students/:id",(req,res)=>{
         if(req.body.dept)
             student.dept=req.body.dept
         res.json(students)
+        setstudents(students)
     }
     else{
         res.status(404).json({message:`student with id : ${req.params.id} not found`})
@@ -115,6 +114,7 @@ app.delete("/api/students/:id",(req,res)=>{
         var ind=students.indexOf(student)
         students.splice(ind,1)
         res.json(students)
+        setstudents(students)
     }
     else{
         res.status(404).json({message:`student with id : ${req.params.id} not found`})
