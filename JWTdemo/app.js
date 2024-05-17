@@ -23,21 +23,25 @@ app.post('/login', (req,res)=>{
 const verifytoken = (req,res,next) =>{
     const data = req.headers['authorization']
     token=data.split(' ')[1]
-    jwt.verify(token,"akhira",(err,decoded)=>{
+    if(token){
+        req.token=token
+        next()
+    }
+    else{
+        res.status(401).send('unauthorized')
+    }
+}
+
+app.post("/profile", verifytoken , (req,res)=>{
+    jwt.verify(req.token,"akhira",(err,decoded)=>{
         if(err){
             console.log("unable to verify")
         }
         else{
             console.log(decoded)
-            next()
+            res.sendFile("index.html",{root:__dirname})
         }
     })
-}
-
-
-
-app.post("/profile", verifytoken , (req,res)=>{
-    res.sendFile("index.html",{root:__dirname})
 })
 
 app.listen(4321)
