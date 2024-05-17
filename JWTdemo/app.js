@@ -1,10 +1,11 @@
 const express=require("express")
 const jwt=require("jsonwebtoken")
+const cors=require("cors")
 const app = express()
-app.use(express.json())
 
+app.use(express.json())
+app.use(cors());
 app.post('/login', (req,res)=>{
-    // console.log(req.body)
     const user = {
         uname: req.body.uname,
         pass: req.body.pass
@@ -12,10 +13,11 @@ app.post('/login', (req,res)=>{
     jwt.sign({user},"akhira",(err,token)=>{
         if(err){
             console.log("cant create token")
-            res.status
+            res.status(403).send("cant create token")
         }
         else{
-            res.status(200).json(token)
+            console.log(token)
+            res.json({"token":token})
         }
     })
 })
@@ -39,7 +41,7 @@ app.post("/profile", verifytoken , (req,res)=>{
         }
         else{
             console.log(decoded)
-            res.sendFile("index.html",{root:__dirname})
+            res.render("profile",{root:__dirname})
         }
     })
 })

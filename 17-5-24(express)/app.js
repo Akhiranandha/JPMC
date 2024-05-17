@@ -1,6 +1,9 @@
 const path=require("path")
 const express = require("express")
 const fs= require("fs")
+const cors = require("cors");
+
+
 // var students=[
 //     {
 //         id:1,
@@ -28,18 +31,6 @@ var getstudents = () =>{
     else{
         console.log("no such resourse")
     }
-    // fs.readFile("students.json", function(err, data) { 
-    
-    //     if (err){
-    //         console.log("no such resourse")
-    //     } 
-    //     else{
-    //         data=data.toString()
-    //         // console.log(typeof data)
-    //         students = JSON.parse(data); 
-    //         return students;
-    //     }
-    // }); 
 }
 var setstudents = (students) => {
     fs.writeFile("students.json", JSON.stringify(students), (err) =>{
@@ -50,9 +41,9 @@ var setstudents = (students) => {
 var app=express()
 app.use(express.static(path.join(__dirname,"public")))
 app.use(express.json())
-
+app.use(cors());
 app.get("/",(req,res)=>{
-    res.send("This is home page")
+    res.status(200).send("This is home page")
 
 });
 app.get("/api/students", (req,res)=>{
@@ -66,7 +57,7 @@ app.post("/api/students",(req,res)=>{
         students= getstudents()
     var student=req.body
     students.push(student)
-    res.json(students)
+    res.status(200).json(students)
     setstudents(students)
 })
 
@@ -79,7 +70,7 @@ app.put("/api/students/:id",(req,res)=>{
         student.name=req.body.name
         student.dept=req.body.dept
 
-        res.json(students)
+        res.status(200).json(students)
         setstudents(students)
     }
     else{
@@ -97,7 +88,7 @@ app.patch("/api/students/:id",(req,res)=>{
             student.name=req.body.name
         if(req.body.dept)
             student.dept=req.body.dept
-        res.json(students)
+        res.status(200).json(students)
         setstudents(students)
     }
     else{
@@ -113,7 +104,7 @@ app.delete("/api/students/:id",(req,res)=>{
     if(student){
         var ind=students.indexOf(student)
         students.splice(ind,1)
-        res.json(students)
+        res.status(200).json(students)
         setstudents(students)
     }
     else{
@@ -125,4 +116,4 @@ app.use((req,res,next)=>{
     res.status(404).send("no such resourse")
 })
 
-app.listen(3421);
+app.listen(4321);
