@@ -41,7 +41,7 @@ app.post("/profile", verifytoken , (req,res)=>{
         }
         else{
             console.log(decoded)
-            res.render("profile",{root:__dirname})
+            res.json({message:"You are authorized user"})
         }
     })
 })
