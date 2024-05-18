@@ -1,0 +1,32 @@
+[
+    {
+        "_id": 1,
+        "name": "Nandhu",
+        "phone": 1234567890,
+        "email": "nandhu@nandhu.com"
+    },
+    {
+        "_id": 2,
+        "name": "John",
+        "phone": 2345678901,
+        "email": "john@john.com"
+    },
+    {
+        "_id": 3,
+        "name": "Jane",
+        "phone": 3456789012,
+        "email": "jane@jane.com"
+    },
+    {
+        "_id": 4,
+        "name": "Alice",
+        "phone": 4567890123,
+        "email": "alice@alice.com"
+    },
+    {
+        "_id": 5,
+        "name": "Bob",
+        "phone": 5678901234,
+        "email": "bob@bob.com"
+    }
+]
