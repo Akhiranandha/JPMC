@@ -1,13 +1,23 @@
 const express = require("express")
-const mongoose = require("mongoose")
+const connectDB = require("./connection/mongodb.connect")
+const bodyParser = require("body-parser") 
+const cors=require("cors")
 require("dotenv").config()
-
 const studentsRoutes = require("./routes/students.route")
 
 const port = process.env.PORT
 const app = express()
+connectDB();
 
+app.use(cors())
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({extended:false}))
 app.use("/api/students",studentsRoutes)
-mongoose.connect("mongodb://localhost:27017/JPMCtest")
 
-app.listen(port)
+app.get("/", (req,res) => {
+    res.send("Hello this is home")
+})
+
+app.listen(port, () =>{
+    console.log(`Server is up at port ${port}`)
+})

@@ -1,4 +1,4 @@
-const { name } = require("ejs")
+// const { name } = require("ejs")
 const mongoose = require("mongoose")
 const student_schema = mongoose.Schema({
     _id:{
@@ -10,4 +10,5 @@ const student_schema = mongoose.Schema({
     email: String
 })
 const student_model = mongoose.model("student",student_schema)
+
 module.exports = student_model
